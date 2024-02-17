@@ -1,26 +1,7 @@
-/**
- * @license
- * Copyright 2019 Google LLC. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
-/** 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
- #map {
-  height: 100%;
-}
 
-/* Optional: Makes the sample page fill the window. */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
 
 .custom-map-control-button {
-  background-color: #fff;
+  background-color: #4dd350;
   border: 0;
   border-radius: 2px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
@@ -31,6 +12,95 @@ body {
   height: 40px;
   cursor: pointer;
 }
+
+/* Hover for Map and Satellite
 .custom-map-control-button:hover {
-  background: rgb(235, 235, 235);
+  background: rgb(75, 95, 193);
+} */
+
+/* For autocomplete search */
+
+#map {
+  height: 100%;
+}
+
+/* 
+  * Optional: Makes the sample page fill the window. 
+  */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  background-color: #d198ce;
+  border: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 10px;
+  /* overflow: hidden; */
+  font-family:'Courier New', Courier, monospace;
+  font-size: medium;
+}
+/* 
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+} */
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  margin-left: 20px;
+  padding: 5px 11px;
+  text-overflow: ellipsis;
+  width: 700px;
+  border-radius: 5px;
+}
+
+#pac-input:focus {
+  font-size: 40px;
+}
+
+#googleMap {
+  top:70px;
+  left: 50px;
+  right: 70px;
+  bottom: 70px;
+  height: 100%;
+  width: 100%;
 }
