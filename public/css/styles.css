@@ -1,40 +1,164 @@
-/**
- * @license
- * Copyright 2019 Google LLC. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
-/** 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
- #map {
-  height: 100%;
-}
 
-#googleMap {
-  position: inherit;
-}
-
-/* Optional: Makes the sample page fill the window. */
 html,
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 20px;
+  padding: 10px;
 }
 
-.custom-map-control-button {
-  background-color: #fff;
-  border: 0;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  margin: 10px;
-  padding: 0 0.5em;
-  font: 400 18px Roboto, Arial, sans-serif;
-  overflow: hidden;
-  height: 40px;
-  cursor: pointer;
+#map{
+  height: 100%;
 }
+
+/* For the option to use current location */
+.custom-map-control-button {
+  position:fixed;
+  background-color: #bd85e3;
+  border-radius: 10px;
+  right: 10px;;
+  margin: 10px;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  overflow: hidden;
+  height: 50px;
+  cursor: pointer; 
+  width:30%;
+}
+
+
+/* Hover for Map and Satellite */
 .custom-map-control-button:hover {
-  background: rgb(235, 235, 235);
+  background: rgb(75, 95, 193);
+}
+
+/* For autocomplete search */
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  position: fixed;
+  background-color: #d198ce;
+  border: 5px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family:'Courier New', Courier, monospace;
+  font-size: medium;
+  margin: 10px;
+  padding: 10px;
+}
+/* 
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+} */
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  margin-left: 20px;
+  padding: 5px 11px;
+  text-overflow: ellipsis;
+  width: 700px;
+  border-radius: 10px;
+}
+
+#pac-input:focus {
+  font-size: 30px;
+  border-radius: 10px;
+}
+
+#googleMap {
+  top:50px;
+  left: 30px;
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+  margin: auto;
+}
+
+/* side menu bar */
+.hamburger-menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger-menu div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.marker-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
+.red { background-color: red; }
+.light-red { background-color: pink; }
+.yellow { background-color: yellow; }
+.light-yellow { background-color: lightyellow; }
+.orange { background-color: orange; }
+.light-orange { background-color: lightsalmon; }
+.blue { background-color: blue; }
+
+.marker-menu {
+  position: fixed;
+  top: 50px;
+  left: -300px;
+  width: 250px;
+  background-color: #fff;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.marker-menu.active {
+  display: block;
+  left: 0;
+}
+
+.marker-option {
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.marker-option:hover {
+  background-color: #f0f0f0;
 }
