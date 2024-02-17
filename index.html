@@ -8,6 +8,24 @@
 
     </head>
     <body>
+        <!-- Hamburger menu icon -->
+        <div class="hamburger-menu" onclick="toggleMarkerMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Side menu bar for marker color options and meanings -->
+        <div class="marker-menu">
+            <h3>Choose the Condition</h3>
+            <div class="marker-option" id="red"><span class="marker-color red"></span> Heavy Snow</div>
+            <div class="marker-option" id="light-red"><span class="marker-color light-red"></span> Light Snow - Drivable Road</div>
+            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Slippery Road - Not Drivable</div>
+            <div class="marker-option" id="light-yellow"><span class="marker-color light-yellow"></span> Less Slippery - Need to Be Careful</div>
+            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Heavy Fog - Turn On Emergency Lights</div>
+            <div class="marker-option" id="light-orange"><span class="marker-color light-orange"></span> Light Fog - Turn On Headlights</div>
+            <div class="marker-option" id="blue"><span class="marker-color blue"></span> Clear Road</div>
+        </div>
         
         <!-- Code for autocomplete address search -->
 
@@ -49,7 +67,7 @@
                 <input id="pac-input" type="text" placeholder="Enter a location" />
                 </div>
             </div>
-            <!-- <div id="map"></div> -->
+            <div id="map"></div>
             <div id="infowindow-content">
                 <span id="place-name" class="title"></span><br />
                 <span id="place-address"></span>
@@ -57,7 +75,7 @@
         </div>
 
         <!-- Displays the Map -->
-        <div id="googleMap"></div>
+        <div id="googleMap" style=""></div>
 
         <script src="js/main.js"></script>
 

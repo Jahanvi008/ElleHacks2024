@@ -1,11 +1,19 @@
-let map, infoWindow;
+let map, infoWindow, marker;
+let selectedMarkerColor = null;
+let confirmedMarkers = [];
+
+// Shows the side menu bar when clicked on it
+function toggleMarkerMenu() {
+  const menu = document.querySelector('.marker-menu');
+  menu.classList.toggle('active');
+}
 
 //Initialize the map
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
     center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
+    zoom: 18,
   });
 
   // Code to access current location of the user
@@ -155,6 +163,23 @@ async function initMap() {
 
     input.value = "";
   });
+
+  // Event listeners for marker color selection
+  const markerOptions = document.querySelectorAll('.marker-option');
+  markerOptions.forEach(option => {
+      option.addEventListener('click', () => {
+          selectedMarkerColor = option.id;
+      });
+  });
+
+  // Event listener for adding marker on map click
+  map.addListener('click', (event) => {
+      if (selectedMarkerColor) {
+          addMarker(event.latLng);
+      } else {
+          alert('Please select a marker color from the side menu.');
+      }
+  });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -165,6 +190,40 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       : "Error: Your browser doesn't support geolocation."
   );
   infoWindow.open(map);
+}
+
+// function addMarker(location) {
+//   const confirmation = confirm("Do you want to add a marker at this location?");
+//   if (marker) {
+//       marker.setMap(null); // Remove existing marker
+//   }
+//   marker = new google.maps.Marker({
+//       position: location,
+//       map: map,
+//       icon: getMarkerIcon(selectedMarkerColor),
+//       draggable: true
+//   });
+// }
+
+function addMarker(location) {
+  const confirmation = confirm("Do you want to add a marker at this location?");
+  if (confirmation) {
+      const newMarker = new google.maps.Marker({
+          position: location,
+          map: map,
+          icon: getMarkerIcon(selectedMarkerColor),
+          draggable: true
+      });
+      // Push the new marker to an array or any data structure to keep track of confirmed markers
+      confirmedMarkers.push(newMarker);
+  }
+}
+
+
+function getMarkerIcon(color) {
+  return {
+      url: `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`
+  };
 }
 
 
