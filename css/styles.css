@@ -1,44 +1,35 @@
 
-
-.custom-map-control-button {
-  background-color: #4dd350;
-  border: 0;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  margin: 10px;
-  padding: 0 0.5em;
-  font: 400 18px Roboto, Arial, sans-serif;
-  overflow: hidden;
-  height: 40px;
-  cursor: pointer;
-}
-
-/* Hover for Map and Satellite
-.custom-map-control-button:hover {
-  background: rgb(75, 95, 193);
-} */
-
-/* For autocomplete search */
-
-#map {
-  height: 100%;
-}
-
-/* 
-  * Optional: Makes the sample page fill the window. 
-  */
 html,
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 20px;
+  padding: 10px;
 }
 
-#description {
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
+/* For the option to use current location */
+.custom-map-control-button {
+  position:absolute;
+  background-color: #bd85e3;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  overflow: hidden;
+  height: 50px;
+  cursor: pointer;
+  right:0;
+  width:30%;
 }
+
+
+/* Hover for Map and Satellite */
+.custom-map-control-button:hover {
+  background: rgb(75, 95, 193);
+}
+
+/* For autocomplete search */
 
 #infowindow-content .title {
   font-weight: bold;
@@ -55,13 +46,14 @@ body {
 .pac-card {
   background-color: #d198ce;
   border: 5px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
   margin: 10px;
   padding: 10px;
-  /* overflow: hidden; */
+  overflow: hidden;
   font-family:'Courier New', Courier, monospace;
   font-size: medium;
+  float: left;
 }
 /* 
 #pac-container {
@@ -89,18 +81,19 @@ body {
   padding: 5px 11px;
   text-overflow: ellipsis;
   width: 700px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 #pac-input:focus {
-  font-size: 40px;
+  font-size: 30px;
+  border-radius: 10px;
 }
 
 #googleMap {
-  top:70px;
-  left: 50px;
-  right: 70px;
-  bottom: 70px;
+  top:50px;
+  left: 30px;
   height: 100%;
   width: 100%;
+  padding: 30px;
+  margin: auto;
 }

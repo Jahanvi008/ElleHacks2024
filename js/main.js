@@ -1,7 +1,8 @@
 let map, infoWindow;
 
 //Initialize the map
-function initMap() {
+async function initMap() {
+  const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
     center: { lat: -34.397, lng: 150.644 },
     zoom: 6,
@@ -121,8 +122,8 @@ function initMap() {
   setupClickListener("changetype-address", ["address"]);
   setupClickListener("changetype-establishment", ["establishment"]);
   setupClickListener("changetype-geocode", ["geocode"]);
-  setupClickListener("changetype-cities", ["(cities)"]);
-  setupClickListener("changetype-regions", ["(regions)"]);
+  setupClickListener("changetype-cities", ["Cities"]);
+  setupClickListener("changetype-regions", ["Regions"]);
   biasInputElement.addEventListener("change", () => {
     if (biasInputElement.checked) {
       autocomplete.bindTo("bounds", map);
