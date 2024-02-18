@@ -36,12 +36,12 @@
   top: 5%;
   left: -400px;
   width: fit-content;
-  background-color: #302a2a;
+  background-color: #433a3a;
   padding: 10px;
   border-right: 1px solid #cec2c2;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 5px rgba(66, 65, 65, 0.2);
   z-index: 1000;
   transition: left 0.3s ease;
   overflow-y: auto;
@@ -81,7 +81,7 @@
   font-weight: 600;
   line-height: normal;
   top: 4%;
-  margin-left: 8%;
+  margin-left: 4%;
   min-height: 60px;
   outline: none;
   text-align: center;
@@ -267,6 +267,16 @@
     left: -80%;
   }
 
+  .pac-card {
+    left: 5%;
+    width: 70%;
+  }
+
+  .double-search-controls {
+    left: 5%;
+    width: 70%;
+  }
+
   #infowindow-content {
     display: block;
   }
@@ -280,7 +290,7 @@
   }
 }
 
-/* For larger screens like laptops and desktops */
+/* For larger screens like laptops and desktops
 @media only screen and (min-width: 769px) {
   .hamburger-menu {
     top: 2%;
@@ -303,4 +313,4 @@
   #output {
     top: 40%;
   }
-}
+} */
