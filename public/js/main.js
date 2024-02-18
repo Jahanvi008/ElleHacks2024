@@ -1,6 +1,7 @@
 let map, infoWindow;
 let userPos;
 let confirmedMarkers = [];
+let selectedMarkerColor = null;
 
 // Shows the side menu bar when clicked on it
 function toggleMarkerMenu() {
@@ -8,24 +9,23 @@ function toggleMarkerMenu() {
   menu.classList.toggle('active');
 }
 
+
 //Initialize the map
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
     center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
+    zoom: 18,
   });
+
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
 
   // Code to access current location of the user
   infoWindow = new google.maps.InfoWindow();
 
-  const locationButton = document.createElement("button");
+  const locationButton = document.getElementById("custom-map-control-button");
 
-  locationButton.textContent = "Use Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-    locationButton
-  );
   locationButton.addEventListener("click", () => {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -68,15 +68,8 @@ async function initMap() {
     strictBounds: false,
   };
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
+  const autocomplete = new google.maps.places.Autocomplete(input,options);
 
-  const autocomplete = new google.maps.places.Autocomplete(
-    input,
-    options
-  );
-
-  // Bind the map's bounds (viewport) property to the autocomplete object,
-  // so that the autocomplete requests use the current map bounds for the bounds option in the request.
   autocomplete.bindTo("bounds", map);
 
   const infowindow = new google.maps.InfoWindow();
@@ -96,11 +89,7 @@ async function initMap() {
     const place = autocomplete.getPlace();
 
     if (!place.geometry || !place.geometry.location) {
-      // User entered the name of a Place that was not suggested and
-      // pressed the Enter key, or the Place Details request failed.
-      window.alert(
-        "No details available for input: '" + place.name + "'"
-      );
+      window.alert("No details available for input: '"+place.name +"'");
       return;
     }
 
@@ -120,8 +109,7 @@ async function initMap() {
     infowindow.open(map, marker);
   });
 
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
+  // Sets a listener on a radio button to change the filter type on places
   function setupClickListener(id, types) {
     const radioButton = document.getElementById(id);
 
@@ -141,10 +129,6 @@ async function initMap() {
     if (biasInputElement.checked) {
       autocomplete.bindTo("bounds", map);
     } else {
-      // User wants to turn off location bias, so three things need to happen:
-      // 1. Unbind from map
-      // 2. Reset the bounds to whole world
-      // 3. Uncheck the strict bounds checkbox UI (which also disables strict bounds)
       autocomplete.unbind("bounds");
       autocomplete.setBounds({
         east: 180,
@@ -187,6 +171,76 @@ async function initMap() {
   });
 }
 
+
+
+const output = document.querySelector('#output');
+//define calcRoute function
+function calculateRoute() {
+  var options = {
+    fields: ["formatted_address", "geometry", "name"],
+    strictBounds: false,
+  };
+
+  var input1 = document.getElementById("start");
+  var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+
+  var input2 = document.getElementById("destination");
+  var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+
+  autocomplete1.bindTo("bounds", map);
+  autocomplete2.bindTo("bounds", map);
+
+  autocomplete1.addListener("place_changed", () => {
+    const place = autocomplete1.getPlace();
+    if (!place.geometry || !place.geometry.location) {
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+    map.setCenter(place.geometry.location);
+    map.setZoom(17);
+  });
+
+  autocomplete2.addListener("place_changed", () => {
+    const place = autocomplete2.getPlace();
+    if (!place.geometry || !place.geometry.location) {
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+    map.setCenter(place.geometry.location);
+    map.setZoom(17);
+  });
+
+  //create request
+  var request = {
+      origin: document.getElementById("start").value,
+      destination: document.getElementById("destination").value,
+      travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+  }
+
+  //pass the request to the route method
+  directionsService.route(request, function (result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+
+          //Get distance and time
+          const output = document.querySelector('#output');
+          output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("start").value + ".<br />To: " + document.getElementById("destination").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+
+          //display route
+          directionsDisplay.setDirections(result);
+      } else {
+          //delete route from map
+          directionsDisplay.setDirections({ routes: [] });
+          //center map in London
+          map.setCenter({ lat: -34.397, lng: 150.644 });
+
+          //show error message
+          output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+      }
+  });
+}
+
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(
@@ -206,11 +260,13 @@ function addMarker(location) {
           icon: getMarkerIcon(selectedMarkerColor),
           draggable: true
       });
-      // Push the new marker to an array or any data structure to keep track of confirmed markers
-      confirmedMarkers.push(newMarker);
+
+    // Push the new marker to an array or any data structure to keep track of confirmed markers
+    confirmedMarkers.push({
+        marker: newMarker,
+    });
   }
 }
-
 
 function getMarkerIcon(color) {
   return {
@@ -218,21 +274,23 @@ function getMarkerIcon(color) {
   };
 }
 
-function sendPositionToServer(position) {
-  fetch('/api/position', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ position }),
-  })
-  .then(response => console.log(response))
-  .then(data => {
-    console.log('Position sent to server:', data);
-  })
-  .catch((error) => {
-    console.error('Error sending position to server:', error);
-  });
-}
+
+
+// function sendPositionToServer(position) {
+//   fetch('/api/position', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ position }),
+//   })
+//   .then(response => console.log(response))
+//   .then(data => {
+//     console.log('Position sent to server:', data);
+//   })
+//   .catch((error) => {
+//     console.error('Error sending position to server:', error);
+//   });
+// }
 
 window.initMap = initMap;

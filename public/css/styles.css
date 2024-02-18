@@ -1,42 +1,138 @@
-
+/* 
 html,
 body {
   height: 100%;
   margin: 20px;
   padding: 10px;
+} */
+
+/* side menu bar */
+.hamburger-menu {
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  cursor: pointer;
 }
 
-#map{
-  height: 100%;
+.hamburger-menu div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.marker-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
+.red { background-color: rgba(200, 1, 1, 0.774); }
+.light-red { background-color: rgb(250, 67, 67); }
+.yellow { background-color: rgba(240, 240, 3, 0.838); }
+.light-yellow { background-color: rgb(135, 206, 145); }
+.orange { background-color: rgb(0, 76, 255); }
+.light-orange { background-color: rgb(144, 119, 223); }
+.blue { background-color: rgb(141, 219, 227); }
+
+.marker-menu {
+  position: fixed;
+  top: 5%;
+  left: -400px;
+  width: fit-content;
+  background-color: #302a2a;
+  padding: 10px;
+  border-right: 1px solid #cec2c2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size:medium;
+  color: aliceblue;
+}
+
+.marker-menu.active {
+  display: block;
+  left: 0;
+}
+
+.marker-option {
+  cursor: pointer;
+  margin-bottom: 8px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.marker-option:hover {
+  background-color: #6d6565;
 }
 
 /* For the option to use current location */
 .custom-map-control-button {
-  position:fixed;
-  background-color: #bd85e3;
-  border-radius: 10px;
-  right: 10px;;
-  margin: 10px;
-  padding: 10px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 30px;
-  font-weight: 100;
-  overflow: hidden;
-  height: 50px;
-  cursor: pointer; 
-  width:30%;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: fixed;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  top: 8%;
+  margin-left: 8%;
+  min-height: 60px;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  will-change: transform;
 }
 
+.custom-map-control-button:disabled {
+  pointer-events: none;
+}
 
-/* Hover for Map and Satellite */
 .custom-map-control-button:hover {
-  background: rgb(75, 95, 193);
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.custom-map-control-button:active {
+  box-shadow: none;
+  transform: translateY(0);
 }
 
 /* For autocomplete search */
+.pac-card {
+  position: fixed;
+  background-color: #4c434c;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: aliceblue;
+  left:28%;
+  top:1%;
+}
 
 #infowindow-content .title {
   font-weight: bold;
+  font-size: medium;
 }
 
 #infowindow-content {
@@ -47,27 +143,10 @@ body {
   display: inline;
 }
 
-.pac-card {
-  position: fixed;
-  background-color: #d198ce;
-  border: 5px;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  font-family:'Courier New', Courier, monospace;
-  font-size: medium;
-  margin: 10px;
-  padding: 10px;
-}
-/* 
-#pac-container {
-  padding-bottom: 12px;
-  margin-right: 12px;
-} */
-
 .pac-controls {
   display: inline-block;
-  padding: 5px 11px;
+  padding: 10px 35px;
+  margin: 5px;
 }
 
 .pac-controls label {
@@ -93,72 +172,89 @@ body {
   border-radius: 10px;
 }
 
-#googleMap {
-  top:50px;
-  left: 30px;
-  height: 100%;
-  width: 100%;
-  padding: 30px;
-  margin: auto;
-}
-
-/* side menu bar */
-.hamburger-menu {
+#double-search-controls {
   position: fixed;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-  z-index: 1001;
+  background-color: #4c434c;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: aliceblue;
+  left:70%;
+  top:1%;
+  padding-top: 10px;
 }
 
-.hamburger-menu div {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  margin: 5px 0;
-}
-
-.marker-color {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-}
-
-.red { background-color: red; }
-.light-red { background-color: pink; }
-.yellow { background-color: yellow; }
-.light-yellow { background-color: lightyellow; }
-.orange { background-color: orange; }
-.light-orange { background-color: lightsalmon; }
-.blue { background-color: blue; }
-
-.marker-menu {
-  position: fixed;
-  top: 50px;
-  left: -300px;
-  width: 250px;
+.ds-input {
   background-color: #fff;
-  padding: 10px;
-  border-right: 1px solid #ccc;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  transition: left 0.3s ease;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  margin: 8px 20px;
+  padding: 0 11px;
+  text-overflow: ellipsis;
+  width: 500px;
+  border-radius: 10px;
 }
 
-.marker-menu.active {
-  display: block;
-  left: 0;
+.route-mode {
+  margin-bottom: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  padding: 0 11px;
 }
 
-.marker-option {
+.button-39 {
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  margin-bottom: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-left: 40%;
 }
 
-.marker-option:hover {
-  background-color: #f0f0f0;
+.button-39:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-39:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-39:focus-visible {
+  box-shadow: none;
+}
+
+#googleMap {
+  position: absolute;
+  top: 15%;
+  border: #302a2a;
+  border-radius: 10px;
+}
+
+/*output box*/
+#output {
+  top: 40%;
+  text-align: center;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+#mode {
+  color: black;
 }
