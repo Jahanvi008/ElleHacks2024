@@ -15,16 +15,18 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", async function(req, res) {
-  const position = req.body;
-  console.log('position in app.js:', position);
-  try {
-       await insertPositionIntoDB(position);
-        res.send(position);
+    const { time, lat, long, color  } = req.body;
+    const position = { time, lat, long, color }; 
+    console.log('position in app.js:', position);
+   
+    try {
+        await insertPositionIntoDB(position);
+        res.send({ position });
     } catch (error) {
-      console.error('Error inserting position into database:', error);
-      // Send the error message with status code 500
-      res.status(500).send(error.message);
-  }
+        console.error('Error inserting position into database:', error);
+        // Send the error message with status code 500
+        res.status(500).send(error.message);
+    }
 });
 
 // Endpoint to fetch all markers
@@ -32,7 +34,6 @@ app.get("/api/markers", async function(req, res) {
     try {
       const markers = await getAllMarkersFromDB();
       res.json(markers);
-      //console.log('markers fetch from app.js:', markers);
     } catch (error) {
       console.error('Error fetching markers from database:', error);
       res.status(500).send(error.message);

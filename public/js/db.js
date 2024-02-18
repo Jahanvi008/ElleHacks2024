@@ -20,17 +20,16 @@ async function insertPositionIntoDB(position) {
     const client = new MongoClient(uri);
     console.log('position in insert:', position);
     
-    // const doc = 
-
-    //   { time: position.time, lat: position.lat, long: position.long}
-
-    // ;
-    
     try {
         await client.connect();
         const database = client.db("location");
         const positionCollection = database.collection("positions");
-        const result = await positionCollection.insertOne(position);
+        const result = await positionCollection.insertOne({
+            time: position.time,
+            lat: position.lat,
+            long: position.long,
+            color: position.color
+        });
         console.log(`Inserted position with ID ${result.insertedId}`);
     } catch (err) {
         console.error("Error inserting position into MongoDB:", err);
@@ -49,6 +48,8 @@ async function getAllMarkersFromDB() {
         const positionCollection = database.collection("positions");
         const markers = await positionCollection.find({}).toArray();
         console.log('markers in getAllMarkersFromDB in db.js:', markers);
+        console.log('Markers in getAllMarkersFromDB in db.js:');
+
         return markers;
     } catch (err) {
         console.error("Error fetching markers from MongoDB:", err);
