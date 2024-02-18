@@ -30,7 +30,7 @@ app.post("/", async function(req, res) {
 });
 
 // Endpoint to fetch all markers
-app.get("/", async function(req, res) {
+app.get("/api/markers", async function(req, res) {
     try {
       const markers = await getAllMarkersFromDB();
       res.json(markers);
