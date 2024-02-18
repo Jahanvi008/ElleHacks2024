@@ -1,10 +1,11 @@
+//Connect to the MongoDB Atlas database and insert a position into the database
+
 const { MongoClient } = require('mongodb');
 
 const uri = "mongodb+srv://Sheida:FnSLGNFFZnmKqnrL@serverlessinstance0.d5cy7rs.mongodb.net/?retryWrites=true&w=majority";
 
 async function connectToMongoDB() {
     const client = new MongoClient(uri);
-
     try {
         await client.connect();
         console.log("Connected to MongoDB!");
@@ -20,18 +21,17 @@ async function insertPositionIntoDB(position) {
     const client = new MongoClient(uri);
     console.log('position in insert:', position);
     
-    // const doc = 
-
-    //   { time: position.time, lat: position.lat, long: position.long}
-
-    // ;
-    
     try {
         await client.connect();
         const database = client.db("location");
         const positionCollection = database.collection("positions");
-        const result = await positionCollection.insertOne(position);
-        console.log(`Inserted position with ID ${result.insertedId}`);
+        const result = await positionCollection.insertOne({
+            time: position.time,
+            lat: position.lat,
+            long: position.long,
+            color: position.color
+        });
+        console.log(`Inserted position with ID ${result.insertedId}`); //Prints ID of each new position
     } catch (err) {
         console.error("Error inserting position into MongoDB:", err);
     } finally {
@@ -39,7 +39,7 @@ async function insertPositionIntoDB(position) {
     }
 }
 
-// Function to fetch all markers from the database
+// Function to fetch data about all markers from the database
 async function getAllMarkersFromDB() {
     const client = new MongoClient(uri);
     
@@ -48,7 +48,8 @@ async function getAllMarkersFromDB() {
         const database = client.db("location");
         const positionCollection = database.collection("positions");
         const markers = await positionCollection.find({}).toArray();
-        console.log('markers in getAllMarkersFromDB in db.js:', markers);
+        
+        console.log('Markers data in getAllMarkersFromDB in db.js:', markers);
         return markers;
     } catch (err) {
         console.error("Error fetching markers from MongoDB:", err);
@@ -57,6 +58,5 @@ async function getAllMarkersFromDB() {
         await client.close();
     }
 }
-
 
 module.exports = { connectToMongoDB, insertPositionIntoDB, getAllMarkersFromDB};

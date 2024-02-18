@@ -1,5 +1,3 @@
-
-
 /* side menu bar */
 .hamburger-menu {
   position: fixed;
@@ -15,6 +13,7 @@
   margin: 5px 0;
 }
 
+/* Menubar options */
 .marker-color {
   display: inline-block;
   width: 20px;
@@ -36,12 +35,12 @@
   top: 5%;
   left: -450px;
   width: fit-content;
-  background-color: #302a2a;
+  background-color: #433a3a;
   padding: 10px;
   border-right: 1px solid #cec2c2;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 5px rgba(66, 65, 65,0.2);
   z-index: 1000;
   transition: left 0.3s ease;
   overflow-y: auto;
@@ -66,7 +65,7 @@
   background-color: #6d6565;
 }
 
-/* For the option to use current location */
+/* Button to use current location */
 .custom-map-control-button {
   appearance: none;
   background-color: transparent;
@@ -75,15 +74,13 @@
   box-sizing: border-box;
   color: #3B3B3B;
   cursor: pointer;
-  display: fixed;
+  position: fixed;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: normal;
-
-  top: 8%;
-  margin-left: 8%;
-
+  top: 7%;
+  margin-left: 4%;
   min-height: 60px;
   outline: none;
   text-align: center;
@@ -92,7 +89,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: fit-content;
+  width: auto;
   will-change: transform;
 }
 
@@ -112,7 +109,7 @@
   transform: translateY(0);
 }
 
-/* For autocomplete search */
+/* Autocomplete single search */
 .pac-card {
   position: fixed;
   background-color: #4c434c;
@@ -122,11 +119,8 @@
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: medium;
   color: aliceblue;
-
-  left:28%;
-  top:1%;
-
-
+  left:25%;
+  top:3%;
 }
 
 #infowindow-content .title {
@@ -135,7 +129,7 @@
 }
 
 #infowindow-content {
-  display: none;
+  display: inline-flex;
 }
 
 #map #infowindow-content {
@@ -144,8 +138,8 @@
 
 .pac-controls {
   display: inline-block;
-  padding: 20px 35px;
-  margin: 0 5px 10px 5px;
+  padding: 10px 35px;
+  margin: 5px;
 }
 
 .pac-controls label {
@@ -160,7 +154,8 @@
   font-size: 30px;
   font-weight: 100;
   margin-left: 20px;
-  padding: 5px 11px 15px 11px;
+  margin-bottom: 20px;
+  padding:  5px 11px 15px;
   text-overflow: ellipsis;
   width: 700px;
   border-radius: 10px;
@@ -170,6 +165,8 @@
   font-size: 30px;
   border-radius: 10px;
 }
+
+/* Route between 2 locations */
 #double-search-controls {
   position: fixed;
   background-color: #4c434c;
@@ -209,7 +206,7 @@
   border-radius: .5rem;
   box-sizing: border-box;
   color: #111827;
-  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: .875rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -240,19 +237,57 @@
 
 #googleMap {
   position: absolute;
-  top: 45%;
+  top: 25%;
   border: #302a2a;
   border-radius: 10px;
 }
 
-/*output box*/
-#output {
-  top: 40%;
-  text-align: center;
-  font-size: 2em;
-  margin: 20px auto;
-}
-
 #mode {
   color: black;
+}
+
+/* General styles */
+
+/* For mobile devices and tablets */
+@media only screen and (max-width: 320px) {
+  .hamburger-menu {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    background-color: #847f7f;
+  }
+
+  .marker-menu {
+    top: 8%;
+    width: 80%;
+    left: -80%;
+  }
+
+  .pac-card {
+    position: fixed;
+    left: 5%;
+    width: 50%;
+    top: 20%;
+    
+  }
+
+  .double-search-controls {
+    position: fixed;
+    left: 5%;
+    width: 50%;
+    top: 30%; 
+    
+  }
+
+  #infowindow-content {
+    display: block;
+  }
+
+  #googleMap {
+    top: 70%;
+  }
+
+  #output {
+    top: 60%;
+  }
 }

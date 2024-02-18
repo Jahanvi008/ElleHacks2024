@@ -1,113 +1,106 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>WinterWatch</title>
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-        <link rel="stylesheet" href="./public/css/styles.css">
+<head>
+    <title>WinterWatch</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    </head>
-    <body>
-        <!-- Hamburger menu icon -->
-        <div class="hamburger-menu" onclick="toggleMarkerMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
+    <link rel="stylesheet" href="./css/styles.css">
+
+</head>
+
+<body>
+    <!-- Hamburger menu icon -->
+    <div class="hamburger-menu" onclick="toggleMarkerMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Use Current Location button -->
+    <button id="custom-map-control-button" class="custom-map-control-button" onclick="useCurrentLocation()">Use Current Location</button>
+
+
+    <!-- Side menu bar for marker color options and meanings -->
+    <div class="marker-menu">
+        <h3>Choose the Condition</h3>
+        <div class="marker-option" id="red"><span class="marker-color red"></span> Heavy Snow</div>
+        <div class="marker-option" id="pink"><span class="marker-color pink"></span> Light Snow/ Drivable Road</div>
+        <div class="marker-option" id="orange"><span class="marker-color orange"></span> Slippery Road/ Not Drivable</div>
+        <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Less Slippery/ Need to Be Careful</div>
+        <div class="marker-option" id="blue"><span class="marker-color blue"></span> Heavy Fog/ Turn On Emergency Lights</div>
+        <div class="marker-option" id="ltblue"><span class="marker-color ltblue"></span> Light Fog/ Turn On Headlights</div>
+        <div class="marker-option" id="green"><span class="marker-color green"></span> Clear Road</div>
+    </div>
+
+
+    <!-- Code for autocomplete address single search -->
+    <div class="pac-card" id="pac-card">
+        <div id="type-selector" class="pac-controls">
+            <input type="radio" name="type" id="changetype-all" checked="checked" />
+            <label for="changetype-all">All</label>
+
+            <input type="radio" name="type" id="changetype-establishment" />
+            <label for="changetype-establishment">establishment</label>
+
+            <input type="radio" name="type" id="changetype-address" />
+            <label for="changetype-address">address</label>
+
+            <input type="radio" name="type" id="changetype-geocode" />
+            <label for="changetype-geocode">geocode</label>
+
+            <input type="radio" name="type" id="changetype-cities" />
+            <label for="changetype-cities">Cities</label>
+
+            <input type="radio" name="type" id="changetype-regions" />
+            <label for="changetype-regions">Regions</label>
         </div>
+        <br />
+        <div id="strict-bounds-selector" class="pac-controls">
+            <input type="checkbox" id="use-location-bias" value="" checked />
+            <label for="use-location-bias">Bias to map viewport</label>
 
-        <!-- Use Current Location button -->
-        <button id="custom-map-control-button" class="custom-map-control-button" onclick="useCurrentLocation()">Use Current Location</button>
-
-
-        <!-- Side menu bar for marker color options and meanings -->
-        <div class="marker-menu">
-            <h3>Choose the Condition</h3>
-            <div class="marker-option" id="red"><span class="marker-color red"></span> Heavy Snow</div>
-            <div class="marker-option" id="pink"><span class="marker-color pink"></span> Light Snow/ Drivable Road</div>
-            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Slippery Road/ Not Drivable</div>
-            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Less Slippery/ Need to Be Careful</div>
-            <div class="marker-option" id="blue"><span class="marker-color blue"></span> Heavy Fog/ Turn On Emergency Lights</div>
-            <div class="marker-option" id="ltblue"><span class="marker-color ltblue"></span> Light Fog/ Turn On Headlights</div>
-            <div class="marker-option" id="green"><span class="marker-color green"></span> Clear Road</div>
+            <input type="checkbox" id="use-strict-bounds" value="" />
+            <label for="use-strict-bounds">Strict bounds</label>
         </div>
-
-        
-        <!-- Code for autocomplete address search -->  
-            <div class="pac-card" id="pac-card">
-                <div id="type-selector" class="pac-controls">
-                    <input
-                    type="radio"
-                    name="type"
-                    id="changetype-all"
-                    checked="checked"
-                    />
-                    <label for="changetype-all">All</label>
-        
-                    <input type="radio" name="type" id="changetype-establishment" />
-                    <label for="changetype-establishment">establishment</label>
-        
-                    <input type="radio" name="type" id="changetype-address" />
-                    <label for="changetype-address">address</label>
-        
-                    <input type="radio" name="type" id="changetype-geocode" />
-                    <label for="changetype-geocode">geocode</label>
-        
-                    <input type="radio" name="type" id="changetype-cities" />
-                    <label for="changetype-cities">Cities</label>
-        
-                    <input type="radio" name="type" id="changetype-regions" />
-                    <label for="changetype-regions">Regions</label>
-                </div>
-                <br />
-                <div id="strict-bounds-selector" class="pac-controls">
-                    <input type="checkbox" id="use-location-bias" value="" checked />
-                    <label for="use-location-bias">Bias to map viewport</label>
-        
-                    <input type="checkbox" id="use-strict-bounds" value="" />
-                    <label for="use-strict-bounds">Strict bounds</label>
-                </div>
-                <div id="pac-container">
-                <input id="pac-input" type="text" placeholder="Enter a location" />
-                </div>
-            </div>
-            <div id="map"></div>
-            <div id="infowindow-content">
-                <span id="place-name" class="title"></span><br />
-                <span id="place-address"></span>
-            </div>
-
-        <!-- double search code -->
-        <div class="double-search-controls" id="double-search-controls">
-            <div>
-                <!-- <label for="start">Starting Point:</label> -->
-                <input class="ds-input" type="text" id="start" placeholder="Enter starting point">
-            </div>
-            <div>
-                <!-- <label for="destination">Destination:</label> -->
-                <input class="ds-input" type="text" id="destination" placeholder="Enter destination">
-            </div>
-            <div class="route-mode">
-                <input type="radio" id="drivingMode" name="mode" value="driving" checked>
-                <label for="drivingMode">Driving</label>
-                <input type="radio" id="walkingMode" name="mode" value="walking">
-                <label for="walkingMode">Walking</label>
-            </div>
-            <button class="button-39" onclick="calculateRoute()">Show Route</button>
+        <div id="pac-container">
+            <input id="pac-input" type="text" placeholder="Enter a location" />
         </div>
+    </div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+        <span id="place-name" class="title"></span>
+        <br />
+        <span id="place-address"></span>
+    </div>
 
+    <!-- Search route between two locations -->
+    <div class="double-search-controls" id="double-search-controls">
+        <div>
+            <input class="ds-input" type="text" id="start" placeholder="Enter starting point">
         </div>
-        <div id="output">
-
+        <div>
+            <input class="ds-input" type="text" id="destination" placeholder="Enter destination">
         </div>
+        <div class="route-mode">
+            <input type="radio" id="drivingMode" name="mode" value="driving" checked>
+            <label for="drivingMode">Driving</label>
+            <input type="radio" id="walkingMode" name="mode" value="walking">
+            <label for="walkingMode">Walking</label>
+        </div>
+        <button class="button-39" onclick="calculateRoute()">Show Route</button>
+    </div>
 
-        
-        <!-- Displays the Map -->
-        <div id="googleMap" style="width:100%;height:85%;"></div>
+    </div>
 
-        <script src="./public/js/main.js"></script>
+    <!-- Displays the Map -->
+    <div id="googleMap" style="width:100%;height:85%;"></div>
+
+    <script src="./js/main.js"></script>
 
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtjnijgZZKC68YhRcFuzKrxviFJEBkRNo&callback=initMap&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtjnijgZZKC68YhRcFuzKrxviFJEBkRNo&callback=initMap&libraries=places"></script>
 
-    </body>
+</body>
+
 </html>

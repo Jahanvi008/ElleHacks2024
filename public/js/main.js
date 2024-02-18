@@ -23,8 +23,8 @@ function markerExists(marker) {
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 18,
+    center: { lat: 43.772555690917805, lng: -79.5064801469422 },
+    zoom: 12,
   });
 
   fetch('/api/markers')
@@ -61,9 +61,6 @@ async function initMap() {
           console.log("pos: ", pos);
           console.log("userpos: ", userPos);
           map.setCenter(pos);
-          
-          // Send position to server after obtaining it
-          //sendPositionToServer(userPos);
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -117,7 +114,7 @@ async function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      map.setZoom(12);
     }
 
     marker.setPosition(place.geometry.location);
@@ -192,7 +189,7 @@ async function initMap() {
 }
 
 const output = document.querySelector('#output');
-//define calcRoute function
+
 function calculateRoute() {
   var options = {
     fields: ["formatted_address", "geometry", "name"],
@@ -215,7 +212,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   autocomplete2.addListener("place_changed", () => {
@@ -225,36 +222,26 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   //create request
   var request = {
       origin: document.getElementById("start").value,
       destination: document.getElementById("destination").value,
-      travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+      travelMode: google.maps.TravelMode.DRIVING, 
       unitSystem: google.maps.UnitSystem.IMPERIAL
   }
 
   //pass the request to the route method
   directionsService.route(request, function (result, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-
-          //Get distance and time
-          const output = document.querySelector('#output');
-          output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("start").value + ".<br />To: " + document.getElementById("destination").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
-
-          //display route
           directionsDisplay.setDirections(result);
       } else {
           //delete route from map
           directionsDisplay.setDirections({ routes: [] });
-          //center map in London
           map.setCenter({ lat: -34.397, lng: 150.644 });
-
-          //show error message
-          output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
-      }
+        }
   });
 }
 
@@ -281,7 +268,7 @@ function addMarker(location) {
 
       const timestamp = Date.now();
 
-      sendPositionToServer({time: timestamp, lat : newMarker.position.lat(), long: newMarker.position.lng()});
+      sendPositionToServer({time: timestamp, lat : newMarker.position.lat(), long: newMarker.position.lng(), color: selectedMarkerColor});
 
     // Push the new marker to an array or any data structure to keep track of confirmed markers
     confirmedMarkers.push({
@@ -290,22 +277,16 @@ function addMarker(location) {
   }
 }
 
+// Add marker to map on reloading the page
 function addMarkerToMap(location, color) {
-  const iconUrl = color === 'black' ? 'http://maps.google.com/mapfiles/ms/icons/black-dot.png' : getMarkerIcon(selectedMarkerColor);
-  // Add marker to map without sending it to the server
+  const iconUrl = getMarkerIcon(color);
   const newMarker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: {
-      url: iconUrl // Use the specified marker icon URL
-    },
-    //icon: getMarkerIcon(selectedMarkerColor),
+    icon: iconUrl,
     draggable: true
   });
 
-  // Optionally, add an event listener or perform any other actions with the marker
-
-  // Push the new marker to the confirmedMarkers array
   confirmedMarkers.push({
     marker: newMarker,
     lat: location.lat,
@@ -315,16 +296,11 @@ function addMarkerToMap(location, color) {
 
 // Function to add markers from the database to the map
 function addMarkersFromDatabase(markers) {
-  // Iterate through the markers and add them to the map
   markers.forEach(marker => {
-    // Check if lat and lng properties are valid numbers
     if (typeof marker.lat === 'number' && typeof marker.long === 'number') {
       if (!markerExists(marker)) {
-        // Add marker to map
-        const position = { lat: marker.lat, lng: marker.long };
+        const position = { time: marker.time, lat: marker.lat, lng: marker.long , color:marker.color};
         addMarkerToMap(position, marker.color);
-        // Add marker to marker management data structure
-        //confirmedMarkers.push(marker);
       }
     } else {
       console.error('Invalid latitude or longitude:', marker);
@@ -348,15 +324,13 @@ function sendPositionToServer(position) {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(position), // Send positionData directly without wrapping it in an object
+    body: JSON.stringify(position), 
     
   })
   .then(response => {
     console.log('response:', response);
     return response.json();
   })
-    
-  //  // Parse the JSON data
   .then(data => {
     console.log('Server returns this message: ', data);
     console.log('position from main.js:', position);
