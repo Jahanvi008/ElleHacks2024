@@ -28,7 +28,7 @@ async function initMap() {
     zoom: 12,
   });
 
-  fetch('/')
+  fetch('/api/markers')
   .then(response => response.json())
   .then(markers => {
     addMarkersFromDatabase(markers);

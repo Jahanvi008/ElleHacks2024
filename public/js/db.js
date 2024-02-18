@@ -48,6 +48,7 @@ async function getAllMarkersFromDB() {
         const positionCollection = database.collection("positions");
         const markers = await positionCollection.find({}).toArray();
         console.log('markers in getAllMarkersFromDB in db.js:', markers);
+        console.log('Markers in getAllMarkersFromDB in db.js:');
 
         return markers;
     } catch (err) {
