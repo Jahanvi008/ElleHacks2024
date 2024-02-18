@@ -20,17 +20,17 @@ async function insertPositionIntoDB(position) {
     const client = new MongoClient(uri);
     console.log('position in insert:', position);
     
-    const doc = 
+    // const doc = 
 
-      { time: position.time, lat: position.lat, long: position.long}
+    //   { time: position.time, lat: position.lat, long: position.long}
 
-    ;
+    // ;
     
     try {
         await client.connect();
         const database = client.db("location");
         const positionCollection = database.collection("positions");
-        const result = await positionCollection.insertOne(doc);
+        const result = await positionCollection.insertOne(position);
         console.log(`Inserted position with ID ${result.insertedId}`);
     } catch (err) {
         console.error("Error inserting position into MongoDB:", err);
@@ -39,4 +39,24 @@ async function insertPositionIntoDB(position) {
     }
 }
 
-module.exports = { connectToMongoDB, insertPositionIntoDB };
+// Function to fetch all markers from the database
+async function getAllMarkersFromDB() {
+    const client = new MongoClient(uri);
+    
+    try {
+        await client.connect();
+        const database = client.db("location");
+        const positionCollection = database.collection("positions");
+        const markers = await positionCollection.find({}).toArray();
+        console.log('markers in getAllMarkersFromDB in db.js:', markers);
+        return markers;
+    } catch (err) {
+        console.error("Error fetching markers from MongoDB:", err);
+        throw err;
+    } finally {
+        await client.close();
+    }
+}
+
+
+module.exports = { connectToMongoDB, insertPositionIntoDB, getAllMarkersFromDB};

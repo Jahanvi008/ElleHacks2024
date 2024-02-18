@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToMongoDB, insertPositionIntoDB } = require("./public/js/db.js");
+const { connectToMongoDB, insertPositionIntoDB, getAllMarkersFromDB } = require("./public/js/db.js");
 
 const app = express();
 
@@ -27,6 +27,17 @@ app.post("/", async function(req, res) {
   }
 });
 
+// Endpoint to fetch all markers
+app.get("/api/markers", async function(req, res) {
+    try {
+      const markers = await getAllMarkersFromDB();
+      res.json(markers);
+      //console.log('markers fetch from app.js:', markers);
+    } catch (error) {
+      console.error('Error fetching markers from database:', error);
+      res.status(500).send(error.message);
+    }
+});
 
 connectToMongoDB().then(() => {
     app.listen(3000, function () {

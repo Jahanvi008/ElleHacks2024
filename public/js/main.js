@@ -12,6 +12,12 @@ function toggleMarkerMenu() {
   menu.classList.toggle('active');
 }
 
+// Function to check if marker already exists
+function markerExists(marker) {
+  return confirmedMarkers.some(existingMarker => {
+    return existingMarker.lat === marker.lat && existingMarker.long === marker.long;
+  });
+}
 
 //Initialize the map
 async function initMap() {
@@ -20,6 +26,16 @@ async function initMap() {
     center: { lat: -34.397, lng: 150.644 },
     zoom: 18,
   });
+
+  fetch('/api/markers')
+  .then(response => response.json())
+  .then(markers => {
+    addMarkersFromDatabase(markers);
+  })
+  .catch(error => {
+    console.error('Error fetching markers:', error);
+  });
+
 
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
@@ -132,10 +148,6 @@ async function initMap() {
     if (biasInputElement.checked) {
       autocomplete.bindTo("bounds", map);
     } else {
-      // User wants to turn off location bias, so three things need to happen:
-      // 1. Unbind from map
-      // 2. Reset the bounds to whole world
-      // 3. Uncheck the strict bounds checkbox UI (which also disables strict bounds)
       autocomplete.unbind("bounds");
       autocomplete.setBounds({
         east: 180,
@@ -271,17 +283,55 @@ function addMarker(location) {
 
       sendPositionToServer({time: timestamp, lat : newMarker.position.lat(), long: newMarker.position.lng()});
 
-      // Add event listeners for mouseover events
-      newMarker.addListener('click', function() {
-        showVotePopup(newMarker);
-    });
-
     // Push the new marker to an array or any data structure to keep track of confirmed markers
     confirmedMarkers.push({
         marker: newMarker,
     });
   }
 }
+
+function addMarkerToMap(location, color) {
+  const iconUrl = color === 'black' ? 'http://maps.google.com/mapfiles/ms/icons/black-dot.png' : getMarkerIcon(selectedMarkerColor);
+  // Add marker to map without sending it to the server
+  const newMarker = new google.maps.Marker({
+    position: location,
+    map: map,
+    icon: {
+      url: iconUrl // Use the specified marker icon URL
+    },
+    //icon: getMarkerIcon(selectedMarkerColor),
+    draggable: true
+  });
+
+  // Optionally, add an event listener or perform any other actions with the marker
+
+  // Push the new marker to the confirmedMarkers array
+  confirmedMarkers.push({
+    marker: newMarker,
+    lat: location.lat,
+    long: location.lng
+  });
+}
+
+// Function to add markers from the database to the map
+function addMarkersFromDatabase(markers) {
+  // Iterate through the markers and add them to the map
+  markers.forEach(marker => {
+    // Check if lat and lng properties are valid numbers
+    if (typeof marker.lat === 'number' && typeof marker.long === 'number') {
+      if (!markerExists(marker)) {
+        // Add marker to map
+        const position = { lat: marker.lat, lng: marker.long };
+        addMarkerToMap(position, marker.color);
+        // Add marker to marker management data structure
+        //confirmedMarkers.push(marker);
+      }
+    } else {
+      console.error('Invalid latitude or longitude:', marker);
+    }
+});
+}
+
 
 function getMarkerIcon(color) {
   return {
