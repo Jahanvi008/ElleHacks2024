@@ -24,8 +24,8 @@ function markerExists(marker) {
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 18,
+    center: { lat: 43.772555690917805, lng: -79.5064801469422 },
+    zoom: 12,
   });
 
   fetch('/api/markers')
@@ -118,7 +118,7 @@ async function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      map.setZoom(12);
     }
 
     marker.setPosition(place.geometry.location);
@@ -216,7 +216,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   autocomplete2.addListener("place_changed", () => {
@@ -226,7 +226,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   //create request
