@@ -15,21 +15,24 @@
             <div></div>
         </div>
 
+        <!-- Use Current Location button -->
+        <button id="custom-map-control-button" class="custom-map-control-button" onclick="useCurrentLocation()">Use Current Location</button>
+
+
         <!-- Side menu bar for marker color options and meanings -->
         <div class="marker-menu">
             <h3>Choose the Condition</h3>
             <div class="marker-option" id="red"><span class="marker-color red"></span> Heavy Snow</div>
-            <div class="marker-option" id="light-red"><span class="marker-color light-red"></span> Light Snow - Drivable Road</div>
-            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Slippery Road - Not Drivable</div>
-            <div class="marker-option" id="light-yellow"><span class="marker-color light-yellow"></span> Less Slippery - Need to Be Careful</div>
-            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Heavy Fog - Turn On Emergency Lights</div>
-            <div class="marker-option" id="light-orange"><span class="marker-color light-orange"></span> Light Fog - Turn On Headlights</div>
+            <div class="marker-option" id="light-red"><span class="marker-color light-red"></span> Light Snow/ Drivable Road</div>
+            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Slippery Road/ Not Drivable</div>
+            <div class="marker-option" id="light-yellow"><span class="marker-color light-yellow"></span> Less Slippery/ Need to Be Careful</div>
+            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Heavy Fog/ Turn On Emergency Lights</div>
+            <div class="marker-option" id="light-orange"><span class="marker-color light-orange"></span> Light Fog/ Turn On Headlights</div>
             <div class="marker-option" id="blue"><span class="marker-color blue"></span> Clear Road</div>
         </div>
-        
-        <!-- Code for autocomplete address search -->
 
-        <div class="search-container">
+        
+        <!-- Code for autocomplete address search -->  
             <div class="pac-card" id="pac-card">
                 <div id="type-selector" class="pac-controls">
                     <input
@@ -72,10 +75,10 @@
                 <span id="place-name" class="title"></span><br />
                 <span id="place-address"></span>
             </div>
-        </div>
 
+        
         <!-- Displays the Map -->
-        <div id="googleMap" style="width:100%;height:800px;"></div>
+        <div id="googleMap" style="width:100%;height:85%;"></div>
 
         <script src="public/js/main.js"></script>
 
