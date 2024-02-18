@@ -271,13 +271,15 @@
   .pac-card {
     left: 5%;
     width: 90%;
-    top: 10%
+    top: 20%;
+    position: fixed;
   }
 
   .double-search-controls {
     left: 5%;
     width: 90%;
-    top: 20%; /* Adjust positioning to appear below pac-card */
+    top: 30%; 
+    position: fixed;
   }
 
   #infowindow-content {
