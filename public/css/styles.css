@@ -75,12 +75,12 @@
   box-sizing: border-box;
   color: #3B3B3B;
   cursor: pointer;
-  display: fixed;
+  position: fixed;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: normal;
-  top: 8%;
+  top: 4%;
   margin-left: 8%;
   min-height: 60px;
   outline: none;
@@ -121,7 +121,7 @@
   font-size: medium;
   color: aliceblue;
   left:20%;
-  top:2%;
+  top:1%;
 }
 
 #infowindow-content .title {
@@ -174,8 +174,8 @@
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: medium;
   color: aliceblue;
-  left:75%;
-  top:4%;
+  left:70%;
+  top:1%;
   padding-top: 10px;
 }
 
@@ -250,4 +250,57 @@
 
 #mode {
   color: black;
+}
+
+/* General styles */
+
+/* For mobile devices and tablets */
+@media only screen and (max-width: 768px) {
+  .hamburger-menu {
+    top: 5%;
+    left: 5%;
+  }
+
+  .marker-menu {
+    top: 10%;
+    width: 80%;
+    left: -80%;
+  }
+
+  #infowindow-content {
+    display: block;
+  }
+
+  #googleMap {
+    top: 50%;
+  }
+
+  #output {
+    top: 60%;
+  }
+}
+
+/* For larger screens like laptops and desktops */
+@media only screen and (min-width: 769px) {
+  .hamburger-menu {
+    top: 2%;
+    left: 2%;
+  }
+
+  .marker-menu {
+    top: 5%;
+    left: -400px;
+  }
+
+  #infowindow-content {
+    display: none;
+  }
+
+  #googleMap {
+    top: 25%;
+  }
+
+  #output {
+    top: 40%;
+  }
 }
