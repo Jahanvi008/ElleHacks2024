@@ -255,7 +255,7 @@
 /* General styles */
 
 /* For mobile devices and tablets */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 320px) {
   .hamburger-menu {
     position: fixed;
     top: 5%;
