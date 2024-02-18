@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SnowTracker</title>
+        <title>WinterWatch</title>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-        <link rel="stylesheet" href="public/css/styles.css">
+        <link rel="stylesheet" href="css/styles.css">
 
     </head>
     <body>
@@ -23,12 +23,12 @@
         <div class="marker-menu">
             <h3>Choose the Condition</h3>
             <div class="marker-option" id="red"><span class="marker-color red"></span> Heavy Snow</div>
-            <div class="marker-option" id="light-red"><span class="marker-color light-red"></span> Light Snow/ Drivable Road</div>
-            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Slippery Road/ Not Drivable</div>
-            <div class="marker-option" id="light-yellow"><span class="marker-color light-yellow"></span> Less Slippery/ Need to Be Careful</div>
-            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Heavy Fog/ Turn On Emergency Lights</div>
-            <div class="marker-option" id="light-orange"><span class="marker-color light-orange"></span> Light Fog/ Turn On Headlights</div>
-            <div class="marker-option" id="blue"><span class="marker-color blue"></span> Clear Road</div>
+            <div class="marker-option" id="pink"><span class="marker-color pink"></span> Light Snow/ Drivable Road</div>
+            <div class="marker-option" id="orange"><span class="marker-color orange"></span> Slippery Road/ Not Drivable</div>
+            <div class="marker-option" id="yellow"><span class="marker-color yellow"></span> Less Slippery/ Need to Be Careful</div>
+            <div class="marker-option" id="blue"><span class="marker-color blue"></span> Heavy Fog/ Turn On Emergency Lights</div>
+            <div class="marker-option" id="ltblue"><span class="marker-color ltblue"></span> Light Fog/ Turn On Headlights</div>
+            <div class="marker-option" id="green"><span class="marker-color green"></span> Clear Road</div>
         </div>
 
         
@@ -76,11 +76,35 @@
                 <span id="place-address"></span>
             </div>
 
+        <!-- double search code -->
+        <div class="double-search-controls" id="double-search-controls">
+            <div>
+                <!-- <label for="start">Starting Point:</label> -->
+                <input class="ds-input" type="text" id="start" placeholder="Enter starting point">
+            </div>
+            <div>
+                <!-- <label for="destination">Destination:</label> -->
+                <input class="ds-input" type="text" id="destination" placeholder="Enter destination">
+            </div>
+            <div class="route-mode">
+                <input type="radio" id="drivingMode" name="mode" value="driving" checked>
+                <label for="drivingMode">Driving</label>
+                <input type="radio" id="walkingMode" name="mode" value="walking">
+                <label for="walkingMode">Walking</label>
+            </div>
+            <button class="button-39" onclick="calculateRoute()">Show Route</button>
+        </div>
+
+        </div>
+        <div id="output">
+
+        </div>
+
         
         <!-- Displays the Map -->
         <div id="googleMap" style="width:100%;height:85%;"></div>
 
-        <script src="public/js/main.js"></script>
+        <script src="js/main.js"></script>
 
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtjnijgZZKC68YhRcFuzKrxviFJEBkRNo&callback=initMap&libraries=places"></script>

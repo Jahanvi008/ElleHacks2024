@@ -8,21 +8,25 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(express.json());
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/api/position", async (req, res) => {
-    const position = req.body.position;
-    try {
-        await insertPositionIntoDB(position);
-        res.send("Position received and inserted into the database.");
+app.post("/", async function(req, res) {
+  const position = req.body;
+  console.log('position in app.js:', position);
+  try {
+       await insertPositionIntoDB(position);
+        res.send(position);
     } catch (error) {
-        console.error('Error inserting position into database:', error);
-        res.status(500).send("Error inserting position into database");
-    }
+      console.error('Error inserting position into database:', error);
+      // Send the error message with status code 500
+      res.status(500).send(error.message);
+  }
 });
+
 
 connectToMongoDB().then(() => {
     app.listen(3000, function () {

@@ -1,10 +1,4 @@
-/* 
-html,
-body {
-  height: 100%;
-  margin: 20px;
-  padding: 10px;
-} */
+
 
 /* side menu bar */
 .hamburger-menu {
@@ -30,12 +24,12 @@ body {
 }
 
 .red { background-color: rgba(200, 1, 1, 0.774); }
-.light-red { background-color: rgb(250, 67, 67); }
+.pink { background-color: rgb(255, 20, 147); }
 .yellow { background-color: rgba(240, 240, 3, 0.838); }
-.light-yellow { background-color: rgb(135, 206, 145); }
-.orange { background-color: rgb(0, 76, 255); }
-.light-orange { background-color: rgb(144, 119, 223); }
-.blue { background-color: rgb(141, 219, 227); }
+.green { background-color: rgb(0, 255, 0); }
+.orange { background-color: rgb(255,165,0); }
+.ltblue { background-color: rgb(35,206,250); }
+.blue { background-color: rgb(0,0,255); }
 
 .marker-menu {
   position: fixed;
@@ -126,7 +120,7 @@ body {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: medium;
   color: aliceblue;
-  left:30%;
+  left:28%;
   top:1%;
 }
 
@@ -171,10 +165,89 @@ body {
   font-size: 30px;
   border-radius: 10px;
 }
+#double-search-controls {
+  position: fixed;
+  background-color: #4c434c;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: aliceblue;
+  left:70%;
+  top:1%;
+  padding-top: 10px;
+}
+
+.ds-input {
+  background-color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  margin: 8px 20px;
+  padding: 0 11px;
+  text-overflow: ellipsis;
+  width: 500px;
+  border-radius: 10px;
+}
+
+.route-mode {
+  margin-bottom: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  padding: 0 11px;
+}
+
+.button-39 {
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-left: 40%;
+}
+
+.button-39:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-39:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-39:focus-visible {
+  box-shadow: none;
+}
 
 #googleMap {
   position: absolute;
-  top: 15%;
+  top: 45%;
   border: #302a2a;
   border-radius: 10px;
+}
+
+/*output box*/
+#output {
+  top: 40%;
+  text-align: center;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+#mode {
+  color: black;
 }
