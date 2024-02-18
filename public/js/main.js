@@ -24,7 +24,7 @@ async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
     center: { lat: 43.774236914800966, lng: -79.50409616626747 },
-    zoom: 15,
+    zoom: 12,
   });
 
   fetch('/api/markers')
@@ -215,7 +215,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   autocomplete2.addListener("place_changed", () => {
@@ -225,7 +225,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   //create request
