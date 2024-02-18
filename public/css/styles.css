@@ -259,10 +259,11 @@
   .hamburger-menu {
     top: 5%;
     left: 5%;
+    background-color: #847f7f;
   }
 
   .marker-menu {
-    top: 10%;
+    top: 8%;
     width: 80%;
     left: -80%;
   }
@@ -270,12 +271,13 @@
   .pac-card {
     left: 5%;
     width: 90%;
+    top: 10%
   }
 
   .double-search-controls {
     left: 5%;
     width: 90%;
-    top: 110%; /* Adjust positioning to appear below pac-card */
+    top: 20%; /* Adjust positioning to appear below pac-card */
   }
 
   #infowindow-content {
