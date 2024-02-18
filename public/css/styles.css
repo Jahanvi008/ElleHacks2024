@@ -257,6 +257,7 @@
 /* For mobile devices and tablets */
 @media only screen and (max-width: 768px) {
   .hamburger-menu {
+    position: fixed;
     top: 5%;
     left: 5%;
     background-color: #847f7f;
@@ -269,17 +270,19 @@
   }
 
   .pac-card {
+    position: fixed;
     left: 5%;
     width: 50%;
     top: 20%;
-    position: fixed;
+    
   }
 
   .double-search-controls {
+    position: fixed;
     left: 5%;
     width: 50%;
     top: 30%; 
-    position: fixed;
+    
   }
 
   #infowindow-content {
@@ -287,7 +290,7 @@
   }
 
   #googleMap {
-    top: 50%;
+    top: 70%;
   }
 
   #output {
