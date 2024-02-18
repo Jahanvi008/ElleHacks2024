@@ -34,14 +34,14 @@
 .marker-menu {
   position: fixed;
   top: 5%;
-  left: -400px;
+  left: -450px;
   width: fit-content;
-  background-color: #433a3a;
+  background-color: #302a2a;
   padding: 10px;
   border-right: 1px solid #cec2c2;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 2px 0 5px rgba(66, 65, 65, 0.2);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   transition: left 0.3s ease;
   overflow-y: auto;
@@ -75,13 +75,15 @@
   box-sizing: border-box;
   color: #3B3B3B;
   cursor: pointer;
-  position: fixed;
+  display: fixed;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: normal;
-  top: 4%;
-  margin-left: 4%;
+
+  top: 8%;
+  margin-left: 8%;
+
   min-height: 60px;
   outline: none;
   text-align: center;
@@ -90,7 +92,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width:auto;
+  width: fit-content;
   will-change: transform;
 }
 
@@ -112,7 +114,7 @@
 
 /* For autocomplete search */
 .pac-card {
-  position:fixed;
+  position: fixed;
   background-color: #4c434c;
   border-radius: 20px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
@@ -120,8 +122,11 @@
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: medium;
   color: aliceblue;
-  left:20%;
+
+  left:28%;
   top:1%;
+
+
 }
 
 #infowindow-content .title {
@@ -134,13 +139,13 @@
 }
 
 #map #infowindow-content {
-  display:inline-flex;
+  display: inline;
 }
 
 .pac-controls {
   display: inline-block;
-  padding: 10px 35px;
-  margin: 5px;
+  padding: 20px 35px;
+  margin: 0 5px 10px 5px;
 }
 
 .pac-controls label {
@@ -155,7 +160,7 @@
   font-size: 30px;
   font-weight: 100;
   margin-left: 20px;
-  padding: 5px 11px;
+  padding: 5px 11px 15px 11px;
   text-overflow: ellipsis;
   width: 700px;
   border-radius: 10px;
@@ -175,7 +180,7 @@
   font-size: medium;
   color: aliceblue;
   left:70%;
-  top:1%;
+  top:3%;
   padding-top: 10px;
 }
 
@@ -235,7 +240,7 @@
 
 #googleMap {
   position: absolute;
-  top: 25%;
+  top: 45%;
   border: #302a2a;
   border-radius: 10px;
 }
@@ -251,74 +256,3 @@
 #mode {
   color: black;
 }
-
-/* General styles */
-
-/* For mobile devices and tablets */
-@media only screen and (max-width: 320px) {
-  .hamburger-menu {
-    position: fixed;
-    top: 5%;
-    left: 5%;
-    background-color: #847f7f;
-  }
-
-  .marker-menu {
-    top: 8%;
-    width: 80%;
-    left: -80%;
-  }
-
-  .pac-card {
-    position: fixed;
-    left: 5%;
-    width: 50%;
-    top: 20%;
-    
-  }
-
-  .double-search-controls {
-    position: fixed;
-    left: 5%;
-    width: 50%;
-    top: 30%; 
-    
-  }
-
-  #infowindow-content {
-    display: block;
-  }
-
-  #googleMap {
-    top: 70%;
-  }
-
-  #output {
-    top: 60%;
-  }
-}
-
-/* For larger screens like laptops and desktops
-@media only screen and (min-width: 769px) {
-  .hamburger-menu {
-    top: 2%;
-    left: 2%;
-  }
-
-  .marker-menu {
-    top: 5%;
-    left: -400px;
-  }
-
-  #infowindow-content {
-    display: none;
-  }
-
-  #googleMap {
-    top: 25%;
-  }
-
-  #output {
-    top: 40%;
-  }
-} */
