@@ -270,14 +270,14 @@
 
   .pac-card {
     left: 5%;
-    width: 90%;
+    width: 50%;
     top: 20%;
     position: fixed;
   }
 
   .double-search-controls {
     left: 5%;
-    width: 90%;
+    width: 50%;
     top: 30%; 
     position: fixed;
   }
