@@ -3,6 +3,7 @@ let userPos;
 let time = '';
 let lat = '';
 let long = '';
+let color = '';
 let confirmedMarkers = [];
 let selectedMarkerColor = null;
 
@@ -23,8 +24,8 @@ function markerExists(marker) {
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 18,
+    center: { lat: 43.772555690917805, lng: -79.5064801469422 },
+    zoom: 12,
   });
 
   fetch('/api/markers')
@@ -117,7 +118,7 @@ async function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      map.setZoom(12);
     }
 
     marker.setPosition(place.geometry.location);
@@ -184,7 +185,7 @@ async function initMap() {
   // Event listener for adding marker on map click
   map.addListener('click', (event) => {
       if (selectedMarkerColor) {
-          addMarker(event.latLng);
+          addMarker(event.latLng, selectedMarkerColor);
       } else {
           alert('Please select a marker color from the side menu.');
       }
@@ -215,7 +216,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   autocomplete2.addListener("place_changed", () => {
@@ -225,7 +226,7 @@ function calculateRoute() {
       return;
     }
     map.setCenter(place.geometry.location);
-    map.setZoom(17);
+    map.setZoom(12);
   });
 
   //create request
@@ -281,7 +282,7 @@ function addMarker(location) {
 
       const timestamp = Date.now();
 
-      sendPositionToServer({time: timestamp, lat : newMarker.position.lat(), long: newMarker.position.lng()});
+      sendPositionToServer({time: timestamp, lat : newMarker.position.lat(), long: newMarker.position.lng(), color: selectedMarkerColor});
 
     // Push the new marker to an array or any data structure to keep track of confirmed markers
     confirmedMarkers.push({
@@ -291,42 +292,36 @@ function addMarker(location) {
 }
 
 function addMarkerToMap(location, color) {
-  const iconUrl = color === 'black' ? 'http://maps.google.com/mapfiles/ms/icons/black-dot.png' : getMarkerIcon(selectedMarkerColor);
-  // Add marker to map without sending it to the server
+  const iconUrl = getMarkerIcon(color);
   const newMarker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: {
-      url: iconUrl // Use the specified marker icon URL
-    },
-    //icon: getMarkerIcon(selectedMarkerColor),
+    icon: iconUrl,
     draggable: true
   });
 
-  // Optionally, add an event listener or perform any other actions with the marker
 
   // Push the new marker to the confirmedMarkers array
   confirmedMarkers.push({
     marker: newMarker,
     lat: location.lat,
-    long: location.lng
+    long: location.lng,
+    color: selectedMarkerColor
   });
 }
 
 // Function to add markers from the database to the map
 function addMarkersFromDatabase(markers) {
-  // Iterate through the markers and add them to the map
+  
   markers.forEach(marker => {
-    // Check if lat and lng properties are valid numbers
-    if (typeof marker.lat === 'number' && typeof marker.long === 'number') {
+    
       if (!markerExists(marker)) {
         // Add marker to map
-        const position = { lat: marker.lat, lng: marker.long };
+        const position = { time: marker.time, lat: marker.lat, lng: marker.long , color:marker.color};
         addMarkerToMap(position, marker.color);
-        // Add marker to marker management data structure
-        //confirmedMarkers.push(marker);
+        console.log('marker color from main.js:', marker.color);
       }
-    } else {
+      else {
       console.error('Invalid latitude or longitude:', marker);
     }
 });
@@ -342,13 +337,15 @@ function getMarkerIcon(color) {
 function sendPositionToServer(position) {
   console.log('position before fetch:', position);
 
+  position.color = selectedMarkerColor;
+
   fetch('/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(position), // Send positionData directly without wrapping it in an object
+    body: JSON.stringify(position), 
     
   })
   .then(response => {
@@ -356,7 +353,7 @@ function sendPositionToServer(position) {
     return response.json();
   })
     
-  //  // Parse the JSON data
+ 
   .then(data => {
     console.log('Server returns this message: ', data);
     console.log('position from main.js:', position);
