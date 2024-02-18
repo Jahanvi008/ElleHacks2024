@@ -8,6 +8,7 @@ Winter time, especially in Canada, can be a challenging time. The roads get bloc
 
 ## How to use
 Visit <https://winterwatch.co/> to access the website.
+Also can be hosted locally by installing npm packages.
 
 ## Screenshots
 ![image.png](screenshot/screenshot.png)
