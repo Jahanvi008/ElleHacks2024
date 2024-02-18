@@ -23,8 +23,8 @@ function markerExists(marker) {
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   map = new google.maps.Map(document.getElementById("googleMap"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 18,
+    center: { lat: 43.774236914800966, lng: -79.50409616626747 },
+    zoom: 15,
   });
 
   fetch('/api/markers')
