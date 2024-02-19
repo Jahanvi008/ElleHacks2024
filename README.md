@@ -1,4 +1,6 @@
 # Winter Watch - ElleHacks2024
+Team: [Jahanvi Mathukia](https://github.com/Jahanvi008), [Sheida Ebrahimi](https://github.com/Sheida-Ebrahimi)
+
 
 ## Overview
 Winter Watch is a website that allows people to share their experiences from the local roads to help others stay up to date, avoid possible injuries, and decide the best way to approach their desired location.
